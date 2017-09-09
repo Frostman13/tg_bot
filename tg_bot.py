@@ -1,5 +1,5 @@
 # Импортируем нужные компоненты
-import tg_bot_settings, astrology, word_handler
+import tg_bot_settings, astrology, word_handler, calc
 import telegram
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 from datetime import datetime, date, time
@@ -31,17 +31,18 @@ def wordcount_bot(bot, update, args):
     message_text = update._effective_message.text[11:]
     update.message.reply_text(word_handler.word_count(message_text))
 
-def calc():
-    return('1')
+
 
 
 def chat_bot(bot, update):
     text=update.message.text
     if text.strip()[-1] == "=":
-        update.message.reply_text(calc())
+        update.message.reply_text(calc.calc(text))
+    else:
+        update.message.reply_text(text)
     logging.info(text)
     print(update)
-    update.message.reply_text(text)
+    
 
 
 
