@@ -1,0 +1,5 @@
+*.log
+*.txt
+__pycache__/
+env/
+tg_bot_settings.py
