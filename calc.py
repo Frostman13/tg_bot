@@ -20,19 +20,16 @@ def calc(str):
     elif str.find('*') != -1:
         result = int(numbers[0]) * int(numbers[1])
     elif str.find('/') != -1:
-        print(numbers[1])
         if int(numbers[1]) == 0:
             result = 'Ошибка деления на ноль'
         else:
             result = float(numbers[0]) / float(numbers[1])
             result = round(result,2)
-    print(numbers)
-    print(result)
     return('Результат вычислений: {}{}'.format(str,result))
 
 if __name__ == '__main__':
     calc('25  55 - 33  31  =')
-    calc('6/0=')
+    #calc('6/0=')
     # calc('25  55 + 33  31  =')
     # calc('25  55 * 33  31  =')
     # calc('25  55 / 33  31  =')
