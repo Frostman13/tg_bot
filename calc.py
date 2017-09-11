@@ -45,22 +45,8 @@ def clear_calc(chat_id):
         local_file.write('')
 
 
-#     if text == '=':
-#         print('равно')
-#         result = str_accumulator
-#         str_accumulator = ''
-#     else:
-#         print('прибавл')
-#         str_accumulator += str(text)
-#         print(str_accumulator)
-#     # return result
-
-# # def key_accumulator(str):
-# #     str_accumulator += str
-# #     str_accumulator = ''
-
 if __name__ == '__main__':
-    calc('25  55 - 33  31  =')
+    chat_calc('25  55 - 33  31  =')
     #calc('6/0=')
     # calc('25  55 + 33  31  =')
     # calc('25  55 * 33  31  =')
