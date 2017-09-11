@@ -37,16 +37,17 @@ def wordcount_bot(bot, update, args):
         update.message.reply_text(word_handler.word_count(message_text))
 
 def chat_bot(bot, update):
+    chat_id = update.message.chat.id
     text=update.message.text
     if text in calc.CALC_SYMBOLS:
         response = calc.key_calc(text,update.message.chat.id)
         if response != 'calc_continue':
             update.message.reply_text(response)
-            clear_keyboards(bot)
+            clear_keyboards(bot,chat_id)
     elif text.strip()[-1] == "=":
         update.message.reply_text(calc.chat_calc(text))
     elif text == 'Esc':
-        clear_keyboards(bot)
+        clear_keyboards(bot,chat_id)
     else:
         update.message.reply_text(text)
     logging.info(text)
@@ -59,9 +60,9 @@ def calc_bot(bot, update, args):
                     text="Используйте клавиатуру", 
                     reply_markup=reply_markup)
 
-def clear_keyboards(bot):
+def clear_keyboards(bot, chat_id):
     reply_markup = telegram.ReplyKeyboardRemove(remove_keyboard=True)
-    bot.send_message(chat_id=update.message.chat.id,
+    bot.send_message(chat_id = chat_id,
                     text="Наберите новую команду: /start /planet /calc /wordcount",
                     reply_markup=reply_markup)
 
