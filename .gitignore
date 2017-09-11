@@ -2,4 +2,5 @@
 *.txt
 __pycache__/
 env/
+calc/
 tg_bot_settings.py

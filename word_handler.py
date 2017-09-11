@@ -10,5 +10,5 @@ def word_count(message_text):
                 words_counter +=1
         result = "В строке {} сл.".format(words_counter)
     else:
-        result = 'Введите текст в кавычках'
+        result = 'Текст обязательно указывать в кавычках\r\nПример использования команды\r\n/wordcount "текст текст текст"'
     return result
