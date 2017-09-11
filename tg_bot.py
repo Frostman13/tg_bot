@@ -77,9 +77,9 @@ def main():
     dp.add_handler(CommandHandler("calc", calc_bot, pass_args=True))
     dp.add_handler(CommandHandler("wordcount", wordcount_bot, pass_args=True))
 
-
-    dp.add_handler(CommandHandler("button", button_bot))
-    dp.add_handler(CallbackQueryHandler(button))
+    # На будущее
+    # dp.add_handler(CommandHandler("button", button_bot))
+    # dp.add_handler(CallbackQueryHandler(button))
 
     updater.start_polling()
     updater.idle()
