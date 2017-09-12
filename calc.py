@@ -1,6 +1,7 @@
 # Калькуляторы
 CALC_SYMBOLS = ['0','1','2','3','4','5','6','7','8','9','+','-','*','/','=']
 DIGITS = ['0','1','2','3','4','5','6','7','8','9']
+CALC_PATH_TEMPLATE = 'calc\calc{}.txt'
 
 def chat_calc(str):
     numbers = ['','']
@@ -28,7 +29,7 @@ def chat_calc(str):
     return('Результат вычислений: {}{}'.format(str,result))
 
 def key_calc(text, chat_id):
-    calc_file_name = 'calc\calc{}.txt'.format(chat_id)
+    calc_file_name = CALC_PATH_TEMPLATE.format(chat_id)
     if text == "=":
         with open(calc_file_name, 'r', encoding = 'utf-8') as local_file:
             result = chat_calc(local_file.read() + '=')
@@ -40,7 +41,7 @@ def key_calc(text, chat_id):
     return result
 
 def clear_calc(chat_id):
-    calc_file_name = 'calc\calc{}.txt'.format(chat_id)
+    calc_file_name = CALC_PATH_TEMPLATE.format(chat_id)
     with open(calc_file_name, 'w') as local_file:
         local_file.write('')
 
@@ -49,5 +50,3 @@ if __name__ == '__main__':
     chat_calc('25  55 - 33  31  =')
     #calc('6/0=')
     # calc('25  55 + 33  31  =')
-    # calc('25  55 * 33  31  =')
-    # calc('25  55 / 33  31  =')

@@ -12,10 +12,12 @@ logging.basicConfig(format='%(name)s - %(asctime)s - %(levelname)s - %(message)s
                     filename='tg_bot.log'
                     )
 
+bot = telegram.Bot(tg_bot_settings.TELEGRAM_API_KEY)
+
 # Приветствие
 def start_bot(bot, update):
     start_text = """Привет, {}!\n\nЯ простой бот и понимаю только команды: {}
-    """.format(update.message.chat.first_name,'/start /planet /wordcount')
+    """.format(update.message.chat.first_name,'/start /planet /calc /wordcount')
     logging.info('Пользователь {} нажал /start'.format(update.message.chat.username))
     update.message.reply_text(start_text)    
     with open('customers.txt', "a") as local_file:
@@ -56,15 +58,15 @@ def calc_bot(bot, update, args):
     calc.clear_calc(update.message.chat.id)
     custom_keyboard = [['1', '2','3','/'], ['4', '5','6','*'],['7', '8','9','-'],['Esc', '0','+','=']]
     reply_markup = telegram.ReplyKeyboardMarkup(custom_keyboard)
-    bot.send_message(chat_id=update.message.chat.id, 
-                    text="Используйте клавиатуру", 
-                    reply_markup=reply_markup)
+    bot.send_message(chat_id = update.message.chat.id, 
+                    text = "Используйте клавиатуру", 
+                    reply_markup = reply_markup)
 
 def clear_keyboards(bot, chat_id):
     reply_markup = telegram.ReplyKeyboardRemove(remove_keyboard=True)
     bot.send_message(chat_id = chat_id,
-                    text="Наберите новую команду: /start /planet /calc /wordcount",
-                    reply_markup=reply_markup)
+                    text = "Наберите новую команду: /start /planet /calc /wordcount",
+                    reply_markup = reply_markup)
 
 
 
@@ -87,9 +89,7 @@ def main():
 
     chat_id = update.message.chat.id
 
-bot = telegram.Bot(tg_bot_settings.TELEGRAM_API_KEY)
 # bot.sendMessage(chat_id,'Бот запущен. Команды: /start /planet /button',disable_notification=True)
-
 
 # На будущее
 # def button(bot, update):
