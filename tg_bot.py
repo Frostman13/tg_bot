@@ -40,7 +40,7 @@ def wordcount_bot(bot, update, args):
 
 def chat_bot(bot, update):
     chat_id = update.message.chat.id
-    text=update.message.text
+    text = update.message.text
     if text in calc.CALC_SYMBOLS:
         response = calc.key_calc(text,update.message.chat.id)
         if response != 'calc_continue':
@@ -56,7 +56,7 @@ def chat_bot(bot, update):
 
 def calc_bot(bot, update, args):
     calc.clear_calc(update.message.chat.id)
-    custom_keyboard = [['1', '2','3','/'], ['4', '5','6','*'],['7', '8','9','-'],['Esc', '0','+','=']]
+    custom_keyboard = [['1', '2','3','÷'], ['4', '5','6','*'],['7', '8','9','-'],['Esc', '0','+','=']]
     reply_markup = telegram.ReplyKeyboardMarkup(custom_keyboard)
     bot.send_message(chat_id = update.message.chat.id, 
                     text = "Используйте клавиатуру", 
