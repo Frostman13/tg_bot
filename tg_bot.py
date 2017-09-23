@@ -1,5 +1,5 @@
 # Импортируем нужные компоненты
-import tg_bot_settings, astrology, word_handler, calc
+import tg_bot_settings, astrology, word_handler, calc, city_game
 import re
 import telegram
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
@@ -11,8 +11,6 @@ import logging
 logging.basicConfig(format='%(name)s - %(asctime)s - %(levelname)s - %(message)s',
                     level=logging.INFO,
                     filename='tg_bot.log')
-
-
 
 # Приветствие
 def start_bot(bot, update):
@@ -39,10 +37,8 @@ def wordcount_bot(bot, update, args):
         update.message.reply_text(word_handler.word_count(message_text))
 
 def chat_bot(bot, update):
-    # print(update)
     chat_id = update.message.chat.id
     text = update.message.text
-    # print(text)
 
     if text in calc.CALC_SYMBOLS:
         response = calc.key_calc(text, chat_id)
@@ -54,8 +50,8 @@ def chat_bot(bot, update):
         clear_keyboards(bot,chat_id)
     elif (text[:13] == 'сколько будет') or (text[:9] == 'посчитай'):
         update.message.reply_text(calc.word_calc(text))
-    elif re.search(r'ближайшее полнолуние',text):
-        update.message.reply_text('Ближайшее полнолуние: {}'.format(astrology.next_full_moon(datetime.now())))
+    elif re.search(r'ближайшее полнолуние', text.lower()):
+        update.message.reply_text(astrology.next_full_moon(text))
     else:
         update.message.reply_text(text)
     logging.info(text)
@@ -75,6 +71,15 @@ def clear_keyboards(bot, chat_id):
                     text="Наберите новую команду: /start /planet /calc /wordcount",
                     reply_markup=reply_markup)
 
+# Подсчёт слов в строке
+def goroda_bot(bot, update, args):
+    chat_id = update.message.chat.id
+    if update.message.text == '/goroda':
+        update.message.reply_text('Пример использования команды\r\n/goroda Город')
+    else:
+        message_text = update._effective_message.text[8:]
+        update.message.reply_text(city_game.city_game_turn(message_text, chat_id))
+    logging.info('Пользователь {}:'.format(update.message.chat.username, update.message.text))
 
 
 def main():
@@ -85,6 +90,7 @@ def main():
     dp.add_handler(CommandHandler("start", start_bot))
     dp.add_handler(CommandHandler("planet", planet_bot, pass_args=True))
     dp.add_handler(CommandHandler("calc", calc_bot, pass_args=True))
+    dp.add_handler(CommandHandler("goroda", goroda_bot, pass_args=True))
     dp.add_handler(CommandHandler("wordcount", wordcount_bot, pass_args=True))
 
     updater.start_polling()

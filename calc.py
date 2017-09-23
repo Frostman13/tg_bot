@@ -28,7 +28,7 @@ def clear_calc(chat_id):
         calc_data_dict[chat_id] = None
 
 def chat_calc(str):
-    numbers = re.findall(r'\d+\.?\d?\d?\d?\d?',str)
+    numbers = re.findall(r'\d+\.?\d*',str)
     if len(numbers) < 2:
         result = 'Не хватает аргументов для расчета'
     else:
@@ -106,12 +106,12 @@ if __name__ == '__main__':
 
     #calc('6/0=')
     # calc('25  55 + 33  31  =')
-    keyp_calc('1',192204203)
+    # key_calc('1',192204203)
     # keyp_calc('1',1)
-    keyp_calc('=',192204203)
+    # key_calc('=',192204203)
     print(calc_data_dict)
-    str1 = "ававлалзвла 1115.155552 ÷ ыывы 22.2 5 sdsds ="
+    str1 = "ававлалзвла 1115.155552 ÷ ыывы 22.2 5 sdsds =   8."
     # res = re.findall(r'\d*\.\d*',str1) + re.findall(r'[0-9]+',str1)
-    res = re.findall(r'\d+\.?\d?\d?\d?\d?',str1)
+    res = re.findall(r'\d+\.?\d*',str1)
     print (res)
     # print(chat_calc(str1))

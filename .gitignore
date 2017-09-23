@@ -1,6 +1,10 @@
 *.log
 *.txt
+test*
 __pycache__/
 env/
 calc/
 tg_bot_settings.py
+
+city_game.py
+cities/
